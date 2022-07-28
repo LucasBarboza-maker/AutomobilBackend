@@ -10,7 +10,8 @@ interface IUser extends Document {
   confirmPassword: string,
   photo: string,
   termsAndAgree: boolean,
-  isUserIdentified: boolean
+  isUserIdentified: boolean,
+  lastModificationDate: Date,
 }
 
 const UserSchema: Schema = new Schema({
@@ -22,7 +23,8 @@ const UserSchema: Schema = new Schema({
   password: {type: String, required: true},
   photo: {type: String},
   termsAndAgree: {type: Boolean, required:true},
-  isUserIndetified: {type: Boolean, default:false}
+  isUserIndetified: {type: Boolean, default:false},
+  lastModificationDate:{type:Date, default: new Date()},
 })
 
 const User: Model<IUser> = model('User', UserSchema);
