@@ -1,6 +1,6 @@
-import {model, Schema, Model, Document} from 'mongoose'
+import {model, Schema, Model, Document, IfEquals} from 'mongoose'
 
-interface IUser extends Document {
+interface IUser {
   name: string,
   surname: string,
   email: string,
@@ -14,17 +14,19 @@ interface IUser extends Document {
   lastModificationDate: Date,
 }
 
-const UserSchema: Schema = new Schema({
+const UserSchema = new Schema<IUser>({
   name: {type: String, required: true},
   surname: {type: String, required: true},
   email: {type: String, required: true},
   phoneNumber: {type: String, required: true},
-  birth: {type: String, required: true},
+  birth: {type: Date, required: true},
   password: {type: String, required: true},
   photo: {type: String},
   termsAndAgree: {type: Boolean, required:true},
-  isUserIndetified: {type: Boolean, default:false},
+  isUserIdentified: {type: Boolean, default:false},
   lastModificationDate:{type:Date, default: new Date()},
 })
 
 const User: Model<IUser> = model('User', UserSchema);
+
+export {User}
