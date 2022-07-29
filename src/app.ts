@@ -10,7 +10,7 @@ import express, {
 } from 'express';
 import { ErrorHandler } from 'express-handler-errors';
 import morgan from 'morgan-body';
-import  route  from './routes';
+import {userRouter} from './routes/user';
 
 import logger from '@middlewares/logger';
 
@@ -74,7 +74,7 @@ class App {
   }
 
   private routes(): void {
-    this.app.use('/api', route);
+    this.app.use('/api/user', userRouter);
   }
 }
 

@@ -1,9 +1,10 @@
-import { server } from './@config/index';
-
+import { server } from '@config/index';
+import connect from '@config/db'
+import express from './app';
 import logger from '@middlewares/logger';
 
-import express from './app';
+connect.then(() => logger.info(`Connection established`));
 
-express.app.listen(server.port, () => {
-  logger.info('Server running', { port: server.port, mode: server.env });
+express.app.listen(server.PORT, () => {
+  logger.info('Server running', { port: server.PORT, mode: server.ENV });
 });
