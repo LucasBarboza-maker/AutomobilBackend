@@ -1,7 +1,7 @@
-import {model, Schema, Model, Document, IfEquals} from 'mongoose'
+import { model, Schema, Model } from 'mongoose'
 
 interface IUser {
-  name: string,
+  name:string,
   surname: string,
   email: string,
   phoneNumber: string,

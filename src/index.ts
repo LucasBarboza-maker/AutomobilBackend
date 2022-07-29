@@ -1,14 +1,9 @@
-import { app }from './app';
-import mongoose from 'mongoose';
+import { server } from './@config/index';
 
-const port = process.env.PORT || 3000;
+import logger from '@middlewares/logger';
 
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>', 
-  process.env.DATABASE_PASSWORD
-  );
-mongoose.connect(DB).then(() => console.log(`Connection established`));
+import express from './app';
 
-app.listen(port, () => {
-  console.log(`App running on port: ${port}...`)
-})
+express.app.listen(server.port, () => {
+  logger.info('Server running', { port: server.port, mode: server.env });
+});
