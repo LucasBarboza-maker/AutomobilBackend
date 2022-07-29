@@ -27,7 +27,7 @@
         "./src/apps/*"
       ],
       "@config/*": [
-        "./src/*"
+        "./src/config/*"
       ],
       "@helper/*": [
         "./src/helper/*"
