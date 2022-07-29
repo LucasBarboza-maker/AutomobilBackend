@@ -29,8 +29,8 @@
       "@config/*": [
         "./src/config/*"
       ],
-      "@helper/*": [
-        "./src/helper/*"
+      "@utils/*": [
+        "./src/utils/*"
       ],
       "@middlewares/*": [
         "./src/middlewares/*"

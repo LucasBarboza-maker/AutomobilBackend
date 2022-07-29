@@ -8,9 +8,9 @@ import express, {
   RequestHandler,
   Response,
 } from 'express';
-import { ErrorHandler } from 'express-handler-errors';
 import morgan from 'morgan-body';
-import {userRouter} from './routes/user';
+import { userRouter } from './routes/user';
+import { globalErrorHandler } from './controllers/errorController';
 
 import logger from '@middlewares/logger';
 
@@ -65,17 +65,14 @@ class App {
    * Aqui é a configuração da lib para tratar os error
    */
   private errorHandle(): void {
-    this.app.use(
-      (err: Error, _: Request, res: Response, next: NextFunction) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        new ErrorHandler().handle(err, res, next, logger as any);
-      }
-    );
+    this.app.use(globalErrorHandler)
+
   }
 
   private routes(): void {
     this.app.use('/api/user', userRouter);
   }
 }
+
 
 export default new App();
