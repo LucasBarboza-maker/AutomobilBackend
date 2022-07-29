@@ -67,6 +67,7 @@ class App {
   private errorHandle(): void {
     this.app.use(
       (err: Error, _: Request, res: Response, next: NextFunction) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         new ErrorHandler().handle(err, res, next, logger as any);
       }
     );
