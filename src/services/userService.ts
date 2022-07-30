@@ -1,30 +1,29 @@
 //import AppError from '../utils/appError'
-import { User } from '../models/user'
-import {Request, Response} from 'express'
+import { User, IUser } from '../models/user'
 
+const SignUp = async (user: any) => {
+  try {
+    const passwordChangedAt = user.passwordChangedAt ? user.passwordChangedAt : null;
+    const role = user.role ? user.role : 'user';
 
-const SignUp = (user: any) => {
+    const newUser: IUser = await User.create({
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      passwordChangedAt: passwordChangedAt,
+      termsAndAgree: user.termsAndAgree,
+      birth: user.birth,
+      phoneNumber: user.phoneNumber,
+      role: role
+    });
 
-  console.log(user);
-
-  return {msg: "Teste user"}
-
-  // const passwordChangedAt = req.body.passwordChangedAt ? req.body.passwordChangedAt : null;
-  // const role = req.body.role ? req.body.role : 'user';
-
-  // const newUser = await User.create({
-  //   name: req.body.name,
-  //   email: req.body.email,
-  //   password: req.body.password,
-  //   passwordConfirm: req.body.passwordConfirm,
-  //   passwordChangedAt: passwordChangedAt,
-  //   role: role
-  // });
-
-  // const url = `${req.protocol}//${req.get('host')}/me`;
-  // await new Email(newUser, url).sendWelcome();
-
-  // createSendToken(newUser, 201, res);
+    return newUser;
+  } catch (err) {
+    console.log(err)
+    return err
+  }
 };
 
-export = {SignUp}
+export = { SignUp }
