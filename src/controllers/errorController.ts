@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AppError } from "@utils/appError";
 import { Request, Response } from "express";
 
@@ -90,11 +92,11 @@ const sendErrorProd = (err: any, req: Request, res: Response) => {
 }
 
 function globalErrorHandler(err: any, req: Request, res: Response, next: any) {
-  console.log(process.env.NODE_ENV)
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'Error';
 
   if (process.env.NODE_ENV === 'dev') {
+
     sendErrorDev(err, req, res);
 
   } else if (process.env.NODE_ENV === 'prod') {
