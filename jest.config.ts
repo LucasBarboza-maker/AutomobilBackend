@@ -17,4 +17,9 @@ export default {
   testEnvironment: 'node',
   modulePathIgnorePatterns: ['dist', 'node_modules', 'coverage'],
   testMatch: ['**/?(*.)+(spec|test).(js|ts|tsx)'],
+  globalSetup: "<rootDir>/tests/globalSetup.ts",
+  globalTeardown: "<rootDir>/tests/globalTeardown.ts",
+  setupFilesAfterEnv: [
+    "<rootDir>/tests/setupFile.ts"
+  ]
 };
