@@ -16,7 +16,7 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   modulePathIgnorePatterns: ['dist', 'node_modules', 'coverage'],
-  testMatch: ['**/?(*.)+(spec|test).(js|ts|tsx)'],
+  testMatch: process.env.TEST_TYPE == 'unit' ? ['**/?(*.)+(spec|test).(js|ts|tsx)'] : ['**/?(*.)+(integration).(spec|test).(js|ts|tsx)'],
   globalSetup: "<rootDir>/tests/globalSetup.ts",
   globalTeardown: "<rootDir>/tests/globalTeardown.ts",
   setupFilesAfterEnv: [

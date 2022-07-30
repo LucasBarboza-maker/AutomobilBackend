@@ -1,6 +1,5 @@
 import * as jwt from 'jsonwebtoken';
 import {tokenInfo} from '@config/index' 
-import { IUser } from 'src/models/user';
 import { Response } from 'express';
 
 
@@ -16,7 +15,7 @@ const signToken = (id:string) => {
   });
 }
 
-const createSendToken = (user:IUser, statusCode:number, res:Response) => {
+const createSendToken = (user:any, statusCode:number, res:Response) => {
   const token = signToken(user._id)
 
   const cookieOptions : ICookieOptions = {
@@ -29,6 +28,7 @@ const createSendToken = (user:IUser, statusCode:number, res:Response) => {
   res.cookie('jwt', token, cookieOptions)
 
   user.password = '';
+  user.passwordConfirm = '';
 
   res.status(statusCode).json({
       status: 'success',
