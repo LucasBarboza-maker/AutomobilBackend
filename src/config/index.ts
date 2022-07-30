@@ -13,10 +13,15 @@ config({ path: `${envdir}/${envfile}` });
 export const server = {
   PORT: process.env.PORT,
   ENV: process.env.NODE_ENV,
-
 }
 
 export const dbConnection = {
   DATABASE: `${process.env.DATABASE}`,
   DATABASE_PASSWORD: `${process.env.DATABASE_PASSWORD}`
+}
+
+export const tokenInfo = {
+  JWT_SECRET: `${process.env.JWT_SECRET}`,
+  JWT_EXPIRES_IN: `${process.env.JWT_EXPIRES_IN}`,
+  JWT_COOKIE_EXPIRES_IN: Number(process.env.JWT_COOKIE_EXPIRES_IN)
 }

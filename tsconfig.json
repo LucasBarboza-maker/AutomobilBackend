@@ -35,6 +35,9 @@
       "@middlewares/*": [
         "./src/middlewares/*"
       ],
+      "@controllers/*": [
+        "./src/controllers/*"
+      ],
       "@tools/*": [
         "./src/tools/*"
       ]
