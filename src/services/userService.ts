@@ -1,7 +1,7 @@
 //import AppError from '../utils/appError'
 import { User, IUser } from '../models/user'
 
-const SignUp = async (user: any) => {
+const SignUp = async (user: IUser) => {
   const passwordChangedAt = user.passwordChangedAt ? user.passwordChangedAt : null;
   const role = user.role ? user.role : 'user';
 

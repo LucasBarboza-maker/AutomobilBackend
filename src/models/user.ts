@@ -3,7 +3,7 @@ import { myValidator } from '@utils/validators'
 import validator from 'validator';
 import { AppError } from '@utils/appError';
 
-interface IUser extends Document {
+interface IUserDocument extends Document {
   name:string,
   surname: string,
   email: string,
@@ -19,7 +19,23 @@ interface IUser extends Document {
   role?: string
 }
 
-const UserSchema = new Schema<IUser>({
+interface IUser {
+  name:string,
+  surname: string,
+  email: string,
+  phoneNumber: string,
+  birth: Date,
+  password: string,
+  passwordConfirm: string,
+  photo?: string,
+  termsAndAgree: boolean,
+  active?: boolean,
+  lastModificationDate?: Date,
+  passwordChangedAt?: Date,
+  role?: string
+}
+
+const UserSchema = new Schema<IUserDocument>({
 name: {
   type: String, 
   required:[true, 'A user must have a name'],
@@ -74,6 +90,6 @@ UserSchema.pre('save', function(next){
   next()
 })
 
-const User: Model<IUser> = model('User', UserSchema);
+const User: Model<IUserDocument> = model('User', UserSchema);
 
-export {User, IUser}
+export {User, IUser, IUserDocument}
