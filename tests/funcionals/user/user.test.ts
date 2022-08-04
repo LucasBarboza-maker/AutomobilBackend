@@ -12,8 +12,8 @@ const user = {
 }
 
 describe('User Service Tests', () => {
-  it('Register User account', async () => {
-    const result = await UserService.SignUp(user);
-    expect(result).toBeDefined()
-  });
+  // it('Register User account', async () => {
+  //   const result = await UserService.SignUp(user);
+  //   expect(result).toBeDefined()
+  // });
 });
