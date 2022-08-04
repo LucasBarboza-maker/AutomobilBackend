@@ -3,7 +3,7 @@ import { catchAsync } from '../utils/catchAsync'
 import { createSendToken } from '@utils/token';
 import { Document } from "mongoose";
 
-import UserService from '../services/userService'
+import * as UserService from '../services/userService'
 
 
 
@@ -19,4 +19,11 @@ export const SignUp = catchAsync(async (req: Request, res: Response, next: NextF
   //await new Email(response, url).sendWelcome();
 
   createSendToken(result, 201, res);
+})
+
+export const Login = catchAsync(async(req: Request, res: Response, next: NextFunction) => {
+  const result = await UserService.Login(req.body, next);
+
+  createSendToken(result, 200, res);
+
 })

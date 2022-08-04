@@ -7,7 +7,7 @@ import * as controller from '../controllers/authController'
 const userRouter = Router();
 
 userRouter.post('/signup', controller.SignUp);
-// router.post('/login', authController.login);
+userRouter.post('/login', controller.Login);
 // router.get('/logout', authController.logout);
 
 // router.post('/forgotPassword', authController.forgotPassword);

@@ -1,6 +1,7 @@
 import { model, Schema, Model, Document } from 'mongoose'
 import { myValidator } from '@utils/validators'
 import validator from 'validator';
+import bcrypt from 'bcrypt'
 import { AppError } from '@utils/appError';
 
 interface IUserDocument extends Document {
@@ -10,13 +11,14 @@ interface IUserDocument extends Document {
   phoneNumber: string,
   birth: Date,
   password: string,
-  passwordConfirm: string,
+  passwordConfirm: string | undefined,
   photo?: string,
   termsAndAgree: boolean,
   active?: boolean,
   lastModificationDate?: Date,
   passwordChangedAt?: Date,
-  role?: string
+  role?: string,
+  correctPassword(candidatePassword: string, userPassword: string): boolean
 }
 
 interface IUser {
@@ -85,10 +87,27 @@ name: {
 })
 
 UserSchema.pre('save', function(next){
-  if(this.password != this.passwordConfirm) return next(new AppError("The password doesn't match with password confirmation", 422))
+  if(this.password != this.passwordConfirm) return next(new AppError("The password doesn't match with password confirmation", 400))
 
   next()
 })
+
+UserSchema.pre('save', async function(next) {
+  //Only run this function if password was actually modified
+  if(!this.isModified('password')) return
+
+  //Hash the password with cost of 12
+  this.password = await bcrypt.hash(this.password, 12);
+
+  //Delete the passwordConfirm field
+  this.passwordConfirm = undefined;
+
+  next(); 
+});
+
+UserSchema.methods.correctPassword = async function(candidatePassword: string, userPassword: string){
+  return await bcrypt.compare(candidatePassword, userPassword);
+}
 
 const User: Model<IUserDocument> = model('User', UserSchema);
 
