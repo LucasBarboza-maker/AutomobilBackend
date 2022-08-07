@@ -56,12 +56,14 @@ name: {
     type: String, 
     required: true,
     validate:[validator.isEmail, 'Please, must be an valid email'],
-    trim: true
+    trim: true,
+    unique: true
   },
   phoneNumber: {
     type: String, 
     required: true,
-    validate:[validator.isNumeric, 'Please only numbers in telephone']
+    validate:[validator.isNumeric, 'Please only numbers in telephone'],
+    unique:true
   },
   birth: {
     type: Date, 
