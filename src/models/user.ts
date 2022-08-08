@@ -18,7 +18,8 @@ interface IUserDocument extends Document {
   lastModificationDate?: Date,
   passwordChangedAt?: Date,
   role?: string,
-  correctPassword(candidatePassword: string, userPassword: string): boolean
+  correctPassword(candidatePassword: string, userPassword: string): boolean,
+  changedPasswordAfter(JWTTimestamp:number): boolean
 }
 
 interface IUser {
@@ -109,6 +110,16 @@ UserSchema.pre('save', async function(next) {
 
 UserSchema.methods.correctPassword = async function(candidatePassword: string, userPassword: string){
   return await bcrypt.compare(candidatePassword, userPassword);
+}
+
+UserSchema.methods.changedPasswordAfter = function(JWTTimestamp:number){
+  if(this.passwordChangedAt){
+      const changedTimestamp = parseInt(`${this.passwordChangedAt.getTime() / 1000}`, 10);
+
+      return JWTTimestamp < changedTimestamp;
+  }
+  
+  return false;
 }
 
 const User: Model<IUserDocument> = model('User', UserSchema);

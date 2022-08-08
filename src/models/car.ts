@@ -3,8 +3,8 @@ import validator from 'validator';
 
 interface ICarDocument extends Document {
   model: string,
-  photos: [string],
-  documentPhoto: string,
+ // photos: [string],
+ // documentPhoto: string,
   type: string,
   fuelType: string,
   canBeUsedToJob: string,
@@ -16,14 +16,14 @@ interface ICarDocument extends Document {
   city: string,
   neighborhood: string,
   number: number,
-  cityLatLong: { lat: number, long: number },
+  //cityLatLong: { lat: number, long: number },
   user: Schema.Types.ObjectId
 }
 
 interface ICar {
   model: string,
-  photos: [string],
-  documentPhoto: string,
+ // photos: [string],
+ // documentPhoto: string,
   type: string,
   fuelType: string,
   canBeUsedToJob: string,
@@ -35,7 +35,7 @@ interface ICar {
   city: string,
   neighborhood: string,
   number: number,
-  cityLatLong: { lat: number, long: number },
+  //cityLatLong: { lat: number, long: number },
   user: Schema.Types.ObjectId
 }
 
@@ -45,16 +45,16 @@ const CarSchema = new Schema<ICarDocument>({
     required:[true, 'A user must have a model name'],
     trim: true,
   },
-  photos:{ 
-    type:[String],
-    maxLength:3,
-    minLength:3,
-    required: [true, 'You must upload 3 photos of your car']
-  },
-  documentPhoto:{
-    type:String,
-    required: true
-  },
+  // photos:{ 
+  //   type:[String],
+  //   maxLength:3,
+  //   minLength:3,
+  //   required: [true, 'You must upload 3 photos of your car']
+  // },
+  // documentPhoto:{
+  //   type:String,
+  //   required: true
+  // },
   type:{
     type:String,
     required: [true, 'Please choose a vehicle type'],
@@ -72,17 +72,16 @@ const CarSchema = new Schema<ICarDocument>({
   },
   unityOfTimeWhichCanBeRented:{
     type:String,
-    require:[true, 'Please, select the time unit to rent']
+    require:[true, 'Please, select the time unit to rent'],
+    enum:['daily', 'monthly', 'undefined']   
   },
   dailyRentPrice: {
     type: Number,
     required: [true, 'Please, you need to choose the daily price'],
-    validate:[validator.isNumeric, 'Please only number in daily rent']
   },
   monthlyRentPrice:{
     type: Number,
     required: [true, 'Please, you need to choose the monthly price'],
-    validate:[validator.isNumeric, 'Please only number in monthly rent']
   },
   country:{
     type:String,
@@ -92,30 +91,23 @@ const CarSchema = new Schema<ICarDocument>({
   region: {
     type:String,
     required:[true, 'Please, select a region(state)'],
-    validate:[validator.isAlpha, 'Please, only letters in region name']
   },
   city: {
     type:String,
     required:[true, 'Please, select a city'],
-    validate:[validator.isAlpha, 'Please, only letters in city name']
   },
   neighborhood: {
     type:String,
     required:[true, 'Please, select a neighborhood'],
-    validate:[validator.isAlpha, 'Please, only letters in a neighborhood name']
   },
   number: {
     type:Number,
     required:[true, 'Please, select a country'],
-    validate:[validator.isNumeric, 'Please, only letters in country name']
   },
-  cityLatLong: { 
-    lat: {type: Number, required: [true, 'Is missing latitude']}, validate:[validator.isNumeric, 'Please, only numbers in latitude'], 
-    long: {type: Number, require:[true, 'Is missing longitude'], validate:[validator.isNumeric, 'Please, only numbers in longitude']} },
   user: Schema.Types.ObjectId
 })
 
 
-const Car: Model<ICarDocument> = model('User', CarSchema);
+const Car: Model<ICarDocument> = model('Car', CarSchema);
 
 export {Car, ICar, ICarDocument}
