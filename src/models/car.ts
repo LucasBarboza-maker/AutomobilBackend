@@ -3,8 +3,9 @@ import validator from 'validator';
 
 interface ICarDocument extends Document {
   model: string,
- // photos: [string],
- // documentPhoto: string,
+  // photos: [string],
+  // documentPhoto: string,
+  summary: string,
   type: string,
   fuelType: string,
   canBeUsedToJob: string,
@@ -16,14 +17,14 @@ interface ICarDocument extends Document {
   city: string,
   neighborhood: string,
   number: number,
-  //cityLatLong: { lat: number, long: number },
+  cityLatLong: { lat: number, long: number },
   user: Schema.Types.ObjectId
 }
 
 interface ICar {
   model: string,
- // photos: [string],
- // documentPhoto: string,
+  // photos: [string],
+  // documentPhoto: string,
   type: string,
   fuelType: string,
   canBeUsedToJob: string,
@@ -35,14 +36,14 @@ interface ICar {
   city: string,
   neighborhood: string,
   number: number,
-  //cityLatLong: { lat: number, long: number },
+  cityLatLong: { lat: number, long: number },
   user: Schema.Types.ObjectId
 }
 
 const CarSchema = new Schema<ICarDocument>({
   model: {
     type: String,
-    required:[true, 'A user must have a model name'],
+    required: [true, 'A user must have a model name'],
     trim: true,
   },
   // photos:{ 
@@ -55,54 +56,62 @@ const CarSchema = new Schema<ICarDocument>({
   //   type:String,
   //   required: true
   // },
-  type:{
-    type:String,
+  type: {
+    type: String,
     required: [true, 'Please choose a vehicle type'],
     enum: ['car', 'van', 'motocycle']
   },
-  fuelType:{
-    type:String,
+  fuelType: {
+    type: String,
     required: [true, 'Please, choose a vehicle fuel'],
     enum: ['petrol', 'gas', 'diesel', 'other']
   },
-  canBeUsedToJob:{
-    type:String,
-    required:[true, 'Please, choose the main utilization of the vehicle'],
-    enum:['tour', 'job', 'both']   
+  canBeUsedToJob: {
+    type: String,
+    required: [true, 'Please, choose the main utilization of the vehicle'],
+    enum: ['tour', 'job', 'both']
   },
-  unityOfTimeWhichCanBeRented:{
-    type:String,
-    require:[true, 'Please, select the time unit to rent'],
-    enum:['daily', 'monthly', 'undefined']   
+  unityOfTimeWhichCanBeRented: {
+    type: String,
+    require: [true, 'Please, select the time unit to rent'],
+    enum: ['daily', 'monthly', 'undefined']
   },
   dailyRentPrice: {
     type: Number,
     required: [true, 'Please, you need to choose the daily price'],
   },
-  monthlyRentPrice:{
+  monthlyRentPrice: {
     type: Number,
     required: [true, 'Please, you need to choose the monthly price'],
   },
-  country:{
-    type:String,
-    required:[true, 'Please, select a country'],
-    validate:[validator.isAlpha, 'Please, only letters in country name']
+  country: {
+    type: String,
+    required: [true, 'Please, select a country'],
+    validate: [validator.isAlpha, 'Please, only letters in country name']
   },
   region: {
-    type:String,
-    required:[true, 'Please, select a region(state)'],
+    type: String,
+    required: [true, 'Please, select a region(state)'],
   },
   city: {
-    type:String,
-    required:[true, 'Please, select a city'],
+    type: String,
+    required: [true, 'Please, select a city'],
   },
   neighborhood: {
-    type:String,
-    required:[true, 'Please, select a neighborhood'],
+    type: String,
+    required: [true, 'Please, select a neighborhood'],
   },
   number: {
-    type:Number,
-    required:[true, 'Please, select a country'],
+    type: Number,
+    required: [true, 'Please, select a country'],
+  },
+  cityLatLong: {
+    lat:{
+      type:Number
+    },
+    long:{
+      type:Number
+    }
   },
   user: Schema.Types.ObjectId
 })
@@ -110,4 +119,4 @@ const CarSchema = new Schema<ICarDocument>({
 
 const Car: Model<ICarDocument> = model('Car', CarSchema);
 
-export {Car, ICar, ICarDocument}
+export { Car, ICar, ICarDocument }

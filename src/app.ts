@@ -11,6 +11,7 @@ import express, {
 import morgan from 'morgan-body';
 import { userRouter } from './routes/user';
 import { carRouter } from './routes/car'
+import { rentRouter } from './routes/rent'
 import { globalErrorHandler } from './controllers/errorController';
 
 import logger from '@middlewares/logger';
@@ -73,6 +74,7 @@ class App {
   private routes(): void {
     this.app.use('/api/user', userRouter);
     this.app.use('/api/car', carRouter);
+    this.app.use('/api/rent', rentRouter);
   }
 }
 

@@ -20,6 +20,11 @@ export const dbConnection = {
   DATABASE_PASSWORD: `${process.env.DATABASE_PASSWORD}`
 }
 
+export const stripeConfig = {
+  PUBLIC_KEY: `${process.env.STRIPE_PUBLIC_KEY}`,
+  PRIVATE_KEY: `${process.env.STRIPE_SECRET_KEY}`
+}
+
 export const tokenInfo = {
   JWT_SECRET: `${process.env.JWT_SECRET}`,
   JWT_EXPIRES_IN: `${process.env.JWT_EXPIRES_IN}`,

@@ -47,7 +47,6 @@ export const protect = catchAsync(async (req: Request, res: Response, next: Next
 
   const freshUser = await GlobalService.getOne(User, null)({ id: decoded.id }, next);
 
-  console.log(freshUser)
 
   if (!freshUser) {
     return next(new AppError('User belonging to the token no longer exist', 401));
