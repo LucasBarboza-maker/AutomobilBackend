@@ -8,6 +8,7 @@ interface ICarDocument extends Document {
   summary: string,
   type: string,
   fuelType: string,
+  rented: boolean,
   canBeUsedToJob: string,
   unityOfTimeWhichCanBeRented: string,
   dailyRentPrice: number,
@@ -27,6 +28,7 @@ interface ICar {
   // documentPhoto: string,
   type: string,
   fuelType: string,
+  rented: boolean,
   canBeUsedToJob: string,
   unityOfTimeWhichCanBeRented: string,
   dailyRentPrice: number,
@@ -65,6 +67,10 @@ const CarSchema = new Schema<ICarDocument>({
     type: String,
     required: [true, 'Please, choose a vehicle fuel'],
     enum: ['petrol', 'gas', 'diesel', 'other']
+  },
+  rented:{
+    type:Boolean,
+    default: false
   },
   canBeUsedToJob: {
     type: String,

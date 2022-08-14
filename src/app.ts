@@ -10,8 +10,9 @@ import express, {
 } from 'express';
 import morgan from 'morgan-body';
 import { userRouter } from './routes/user';
-import { carRouter } from './routes/car'
-import { rentRouter } from './routes/rent'
+import { carRouter } from './routes/car';
+import { rentRouter } from './routes/rent';
+import { webHookRouter } from './routes/webhook';
 import { globalErrorHandler } from './controllers/errorController';
 
 import logger from '@middlewares/logger';
@@ -23,6 +24,8 @@ class App {
 
   constructor() {
     this.app = express();
+    this.webhookRoute();
+    this.app.use(express.json())
     this.session = createNamespace('request'); // é aqui que vamos armazenar o id da request
     this.middlewares();
     this.routes();
@@ -75,6 +78,10 @@ class App {
     this.app.use('/api/user', userRouter);
     this.app.use('/api/car', carRouter);
     this.app.use('/api/rent', rentRouter);
+  }
+
+  private webhookRoute(): void{
+    this.app.use('/api/webhook', webHookRouter);
   }
 }
 

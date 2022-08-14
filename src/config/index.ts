@@ -22,7 +22,8 @@ export const dbConnection = {
 
 export const stripeConfig = {
   PUBLIC_KEY: `${process.env.STRIPE_PUBLIC_KEY}`,
-  PRIVATE_KEY: `${process.env.STRIPE_SECRET_KEY}`
+  PRIVATE_KEY: `${process.env.STRIPE_SECRET_KEY}`,
+  WEBHOOK_LOCAL: `${process.env.WEBHOOK_LOCAL_KEY}`
 }
 
 export const tokenInfo = {

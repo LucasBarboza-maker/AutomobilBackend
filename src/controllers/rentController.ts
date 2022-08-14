@@ -12,8 +12,6 @@ export const getCheckoutSession = catchAsync(async (req: Request, res: Response,
     select: '-__v -passwordChangedAt'
   })({id:carId}, next)
 
-  console.log(car)
-
   if (car.errors != undefined) {
     throw car
   }

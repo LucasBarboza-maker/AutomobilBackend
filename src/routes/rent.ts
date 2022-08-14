@@ -9,6 +9,6 @@ const rentRouter = Router();
 
 
 rentRouter.route('/checkout/:carId')
-  .get(authController.protect, controller.getCheckoutSession)
+  .post(authController.protect, controller.getCheckoutSession)
 
 export {rentRouter};

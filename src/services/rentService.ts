@@ -14,6 +14,15 @@ export const getCheckoutSession = async (req: Request, car: ICarDocument) => {
     cancel_url: `${req.protocol}://${req.get('host')}`,
     customer_email: req.body.user.email,
     client_reference_id: req.params.tourId,
+    payment_intent_data: {
+      metadata: {
+        car: `${car._id}`, 
+        client: `${req.body.user.id}`,
+        usedFor: `${req.body.rent.usedFor}`,
+        rentTime: `${req.body.rent.rentTime}`,
+        timeToReturn: `${req.body.rent.timeToReturn}`
+      }
+    },
     line_items: [
       {
         price_data: {
@@ -26,7 +35,7 @@ export const getCheckoutSession = async (req: Request, car: ICarDocument) => {
         quantity: 1,
       }
     ],
-    mode:'payment'
+    mode: 'payment'
   })
 
   return session
